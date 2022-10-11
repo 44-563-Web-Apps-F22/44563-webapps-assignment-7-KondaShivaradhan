@@ -48,22 +48,32 @@
         chestCount = 0
         score = 0
         lastCheck = 12
-        treaseLocation = 18
+        treasureLocation = 18
+        treasureLocation = getRandomInt(1, 25)
+        console.log(treasureLocation);
+        // bonus
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            value = Math.floor(Math.random() * (max - min) + min);
+            if (value == 13) {
+                getRandomInt(1, 25)
+            }
+            return value // The maximum is exclusive and the minimum is inclusive
+        }
 
         function fetch() {
             imgs = document.getElementsByTagName("img")
             Array.from(imgs).forEach(element => {
-                console.log(element.id);
                 ids.push(element.id)
             });
-            console.log(ids);
         }
 
         function check(position) {
             chestCount++;
             score += 2;
             lastCheck = position
-            if (position == treaseLocation) {
+            if (position == treasureLocation) {
                 document.getElementById(ids[position - 1]).src = 'imgs/chest.png'
             } else {
                 document.getElementById(ids[position - 1]).src = 'imgs/emptychest.png'
@@ -71,28 +81,31 @@
             document.getElementById("chests").innerHTML = 'Number of chests checked is ' + chestCount
 
             document.getElementById("score").innerHTML = 'Score is ' + score
+                // help()
         }
 
         function help() {
+            tcol = (Math.round(treasureLocation % 5) == 0) ? 5 : Math.round(treasureLocation % 5)
+            trow = treasureLocation / 5
             let row = lastCheck / 5
             let col = (Math.round(lastCheck % 5) == 0) ? 5 : Math.round(lastCheck % 5)
-            if (row > 3 && row <= 4 && col != 3) {
-                if (row > 3.6) {
+            if (col == tcol && row == trow) {
+                document.getElementById('help').innerHTML = 'Sorry, no help available'
+            } else if (row > parseInt(trow) && row <= parseInt(trow) + 1 && col != tcol) {
+                if (col > tcol) {
                     document.getElementById('help').innerHTML = 'left'
                 } else {
                     document.getElementById('help').innerHTML = 'right'
 
                 }
-            } else if (col == 3 && row < 3 || row > 4) {
-                if (row > 3.6) {
+            } else if (col == tcol && (row < parseInt(trow) || row > parseInt(trow))) {
+                if (row > trow) {
                     document.getElementById('help').innerHTML = 'up'
 
                 } else {
                     document.getElementById('help').innerHTML = 'down'
 
                 }
-            } else if (col == 3 && row == 3.6) {
-                document.getElementById('help').innerHTML = 'Sorry, no help available'
             } else {
                 document.getElementById('help').innerHTML = 'Sorry, no help available'
             }
