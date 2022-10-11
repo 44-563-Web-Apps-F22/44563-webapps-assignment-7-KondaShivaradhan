@@ -15,29 +15,38 @@
     <h2>Konda Shivaradhan Reaction Timer</h2>
     <p id="target">Your time</p>
     <p id="countdown">Count</p>
-    <button type="button" class="btn btn-primary" onclick="buttonPress2()">
+    <button type="button" class="btn btn-primary" onclick="startTime()">
       Start Timer
     </button>
     <button type="button" class="btn btn-primary" onclick="recordReact()">
    React Now
   </button>
     <script>
-        myTime = 0
+        myTime = undefined
 
         function recordReact(params) {
             myTime = Date.now()
-            console.log(myTime);
+                // console.log(myTime);
         }
 
-        function buttonPress1() {
-            setTimeout(function() {
-                document.getElementById('target').style.color = "red"
-            }, 3000)
-        }
-
-        function buttonPress2() {
+        function startTime() {
+            for (let index = 0; index < 4; index++) {
+                console.log(index);
+                setTimeout(() => {
+                    document.getElementById('countdown').innerHTML = index
+                }, (3 - index) * 1000);
+            }
             setTimeout(() => {
-                document.getElementById('target').style.color = "red"
+                var buttonTime = Date.now()
+                if (myTime) {
+                    console.log('came her');
+
+                    document.getElementById('target').innerHTML = 'TIme was ' + (buttonTime - myTime)
+                } else {
+                    console.log('came else');
+
+                    document.getElementById('targer').innerHTML = 'Too Slow'
+                }
             }, 3000)
         }
     </script>
