@@ -43,9 +43,64 @@
             margin: auto 0;
         }
     </style>
+    <script>
+        ids = []
+        chestCount = 0
+        score = 0
+        lastCheck = 12
+        treaseLocation = 18
+
+        function fetch() {
+            imgs = document.getElementsByTagName("img")
+            Array.from(imgs).forEach(element => {
+                console.log(element.id);
+                ids.push(element.id)
+            });
+            console.log(ids);
+        }
+
+        function check(position) {
+            chestCount++;
+            score += 2;
+            lastCheck = position
+            if (position == treaseLocation) {
+                document.getElementById(ids[position - 1]).src = 'imgs/chest.png'
+            } else {
+                document.getElementById(ids[position - 1]).src = 'imgs/emptychest.png'
+            }
+            document.getElementById("chests").innerHTML = 'Number of chests checked is ' + chestCount
+
+            document.getElementById("score").innerHTML = 'Score is ' + score
+        }
+
+        function help() {
+            let row = lastCheck / 5
+            let col = (Math.round(lastCheck % 5) == 0) ? 5 : Math.round(lastCheck % 5)
+            if (row > 3 && row <= 4 && col != 3) {
+                if (row > 3.6) {
+                    document.getElementById('help').innerHTML = 'left'
+                } else {
+                    document.getElementById('help').innerHTML = 'right'
+
+                }
+            } else if (col == 3 && row < 3 || row > 4) {
+                if (row > 3.6) {
+                    document.getElementById('help').innerHTML = 'up'
+
+                } else {
+                    document.getElementById('help').innerHTML = 'down'
+
+                }
+            } else if (col == 3 && row == 3.6) {
+                document.getElementById('help').innerHTML = 'Sorry, no help available'
+            } else {
+                document.getElementById('help').innerHTML = 'Sorry, no help available'
+            }
+        }
+    </script>
 </head>
 
-<body>
+<body onload="fetch()">
     <h2 style="text-align: center;">Konda Shivaradhan Treasure hunt</h2>
     <br>
 
@@ -60,40 +115,40 @@
         </div>
         <div>
             <div class="container">
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img1" onclick="check(1)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img2" onclick="check(2)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img3" onclick="check(3)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img4" onclick="check(4)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img5" onclick="check(5)" src="imgs/chestC.jfif" alt=""></div>
             </div>
             <div class="container">
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img6" onclick="check(6)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img7" onclick="check(7)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img8" onclick="check(8)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img9" onclick="check(9)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img10" onclick="check(10)" src="imgs/chestC.jfif" alt=""></div>
 
             </div>
             <div class="container">
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/help.png" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img11" onclick="check(11)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img12" onclick="check(12)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img13" onclick="help()" src="imgs/help.png" alt=""></div>
+                <div class="div"><img id="img14" onclick="check(14)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img15" onclick="check(15)" src="imgs/chestC.jfif" alt=""></div>
             </div>
             <div class="container">
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img16" onclick="check(16)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img17" onclick="check(17)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img18" onclick="check(18)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img19" onclick="check(19)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img20" onclick="check(20)" src="imgs/chestC.jfif" alt=""></div>
             </div>
             <div class="container">
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img21" onclick="check(21)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img22" onclick="check(22)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img23" onclick="check(23)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img24" onclick="check(24)" src="imgs/chestC.jfif" alt=""></div>
+                <div class="div"><img id="img25" onclick="check(25)" src="imgs/chestC.jfif" alt=""></div>
             </div>
         </div>
     </div>
