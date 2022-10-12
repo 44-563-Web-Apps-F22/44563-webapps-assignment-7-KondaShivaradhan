@@ -48,21 +48,36 @@
         chestCount = 0
         score = 0
         lastCheck = 12
-        treasureLocation = 18
-        treasureLocation = getRandomInt(1, 25)
-        console.log(treasureLocation);
-        // bonus
+            // treasureLocation = 18
+        treasureLocation = getRandomInt(0, 25)
+        imgs = document.getElementsByTagName("img")
+            // bonus
         function getRandomInt(min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
             value = Math.floor(Math.random() * (max - min) + min);
-            if (value == 13) {
-                getRandomInt(1, 25)
+            if (value == 12) {
+                getRandomInt(0, 25)
             }
-            return value // The maximum is exclusive and the minimum is inclusive
+            return value
         }
 
-        function fetch() {
+        function reset() {
+            chestCount = 0
+            score = 0
+            document.getElementById("score").innerHTML = 'Score is unknown.'
+            document.getElementById("chests").innerHTML = 'Number of chests checked is zero.'
+            document.getElementById("help").innerHTML = 'Help report'
+            treasureLocation = getRandomInt(0, 25)
+            console.log(treasureLocation);
+            for (let index = 0; index < ids.length; index++) {
+                if (index != 12)
+                    document.getElementById(ids[index]).src = 'imgs/chestC.jfif'
+
+            }
+        }
+
+        function fetch() { // this method for fetching all the IDs of img tagged elements
             imgs = document.getElementsByTagName("img")
             Array.from(imgs).forEach(element => {
                 ids.push(element.id)
@@ -71,12 +86,13 @@
 
         function check(position) {
             chestCount++;
-            score += 2;
+            score = score + 1;
             lastCheck = position
+            console.log(position);
             if (position == treasureLocation) {
-                document.getElementById(ids[position - 1]).src = 'imgs/chest.png'
+                document.getElementById(ids[position]).src = 'imgs/chest.png'
             } else {
-                document.getElementById(ids[position - 1]).src = 'imgs/emptychest.png'
+                document.getElementById(ids[position]).src = 'imgs/emptychest.png'
             }
             document.getElementById("chests").innerHTML = 'Number of chests checked is ' + chestCount
 
@@ -85,30 +101,23 @@
         }
 
         function help() {
-            tcol = (Math.round(treasureLocation % 5) == 0) ? 5 : Math.round(treasureLocation % 5)
-            trow = treasureLocation / 5
-            let row = lastCheck / 5
-            let col = (Math.round(lastCheck % 5) == 0) ? 5 : Math.round(lastCheck % 5)
-            if (col == tcol && row == trow) {
-                document.getElementById('help').innerHTML = 'Sorry, no help available'
-            } else if (row > parseInt(trow) && row <= parseInt(trow) + 1 && col != tcol) {
-                if (col > tcol) {
-                    document.getElementById('help').innerHTML = 'left'
-                } else {
-                    document.getElementById('help').innerHTML = 'right'
-
-                }
-            } else if (col == tcol && (row < parseInt(trow) || row > parseInt(trow))) {
-                if (row > trow) {
-                    document.getElementById('help').innerHTML = 'up'
-
-                } else {
-                    document.getElementById('help').innerHTML = 'down'
-
-                }
+            row = lastCheck % 5
+            col = Math.floor(lastCheck / 5)
+            trow = treasureLocation % 5
+            tcol = Math.floor(treasureLocation / 5)
+            score = score + 2
+            if ((row == trow) && (col > tcol)) {
+                document.getElementById("help").innerHTML = "up"
+            } else if ((row == trow) && (col < tcol)) {
+                document.getElementById("help").innerHTML = "down"
+            } else if ((row > trow) && (col == tcol)) {
+                document.getElementById("help").innerHTML = "left"
+            } else if ((row < trow) && (col == tcol)) {
+                document.getElementById("help").innerHTML = "right"
             } else {
-                document.getElementById('help').innerHTML = 'Sorry, no help available'
+                document.getElementById("help").innerHTML = "Sorry, no help available"
             }
+            document.getElementById("score").innerHTML = "Score is " + score
         }
     </script>
 </head>
@@ -124,44 +133,51 @@
                 <p id="chests">Number of chests checked is zero.</p>
                 <p id="score">Score is unknown.</p>
                 <p id="help">Help report</p>
+                <center>
+                    <p>
+                        <button class="btn btn-dark" onclick="reset()">ReStart</button>
+                    </p>
+                </center>
             </div>
         </div>
         <div>
             <div class="container">
+                <div class="div"><img id="img0" onclick="check(0)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img1" onclick="check(1)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img2" onclick="check(2)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img3" onclick="check(3)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img4" onclick="check(4)" src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img id="img5" onclick="check(5)" src="imgs/chestC.jfif" alt=""></div>
             </div>
             <div class="container">
+                <div class="div"><img id="img5" onclick="check(5)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img6" onclick="check(6)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img7" onclick="check(7)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img8" onclick="check(8)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img9" onclick="check(9)" src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img id="img10" onclick="check(10)" src="imgs/chestC.jfif" alt=""></div>
 
             </div>
             <div class="container">
+                <div class="div"><img id="img10" onclick="check(10)" src="imgs/chestC.jfif" alt=""></div>
+
                 <div class="div"><img id="img11" onclick="check(11)" src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img id="img12" onclick="check(12)" src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img id="img13" onclick="help()" src="imgs/help.png" alt=""></div>
+                <div class="div"><img id="img12" onclick="help()" src="imgs/help.png" alt=""></div>
+                <div class="div"><img id="img13" onclick="check(13)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img14" onclick="check(14)" src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img id="img15" onclick="check(15)" src="imgs/chestC.jfif" alt=""></div>
             </div>
             <div class="container">
+                <div class="div"><img id="img15" onclick="check(15)" src="imgs/chestC.jfif" alt=""></div>
+
                 <div class="div"><img id="img16" onclick="check(16)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img17" onclick="check(17)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img18" onclick="check(18)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img19" onclick="check(19)" src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img id="img20" onclick="check(20)" src="imgs/chestC.jfif" alt=""></div>
             </div>
             <div class="container">
+                <div class="div"><img id="img20" onclick="check(20)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img21" onclick="check(21)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img22" onclick="check(22)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img23" onclick="check(23)" src="imgs/chestC.jfif" alt=""></div>
                 <div class="div"><img id="img24" onclick="check(24)" src="imgs/chestC.jfif" alt=""></div>
-                <div class="div"><img id="img25" onclick="check(25)" src="imgs/chestC.jfif" alt=""></div>
             </div>
         </div>
     </div>
